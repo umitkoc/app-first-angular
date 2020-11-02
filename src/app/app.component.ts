@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Model,TodoItem } from './model';
 
 @Component({
   selector: 'app-desktop',
@@ -6,13 +7,20 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  user = 'Umit';
-  Merhaba="Hello ";
-  items=[
-    {Id:1,Desc:"Kahvaltı",Action:"No"},
-    {Id:3,Desc:"Sinema",Action:"Yes"},
-    {Id:6,Desc:"Spor",Action:"No"},
-    {Id:2,Desc:"Kitap",Action:"Yes"},
-    {Id:5,Desc:"Kahvaltı",Action:"No"}
-  ];
+ model=new Model();
+ IsDisplay=false;
+ GetName(){
+   return this.model.user;
+ }
+ GetItem(){
+   if(this.IsDisplay){
+     return this.model.items;
+   }
+   return this.model.items.filter(item=>!item.action);
+ }
+ Add(value){
+    if(value!=""){
+        this.model.items.push(new TodoItem(value,false));
+    }
+ }
 }
